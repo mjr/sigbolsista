@@ -10,8 +10,8 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/protected-resource")
-    public String protectedResource() {
-        return "protected-resource";
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
     }
 }

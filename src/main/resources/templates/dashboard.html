@@ -4,9 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-  <title>Início</title>
+  <title>Painel | SigBolsista</title>
 </head>
 <body>
-  <h1>Início</h1>
+  <header>
+    <a th:href="@{/logout}">Sair</a>
+  </header>
+  <main>
+    <h1>Painel</h1>
+    <div>
+      <a th:href="@{/justification}">Justificativas</a>
+    </div>
+  </main>
 </body>
 </html>

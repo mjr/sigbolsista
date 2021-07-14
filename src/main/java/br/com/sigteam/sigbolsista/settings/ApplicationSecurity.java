@@ -3,7 +3,6 @@ package br.com.sigteam.sigbolsista.settings;
 import br.com.sigteam.sigbolsista.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -24,14 +23,13 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/login", "/register", "/").permitAll()
             .anyRequest().authenticated().and()
-            .formLogin().loginPage("/login").defaultSuccessUrl("/protected-resource", true).permitAll().and()
+            .formLogin().loginPage("/login").defaultSuccessUrl("/dashboard", true).permitAll().and()
             .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-        // auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
     }
 
     @Override

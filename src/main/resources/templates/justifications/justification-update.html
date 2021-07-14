@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <title>Atualizar justificativa | SigBolsista</title>
+</head>
+<body>
+  <header>
+    <a th:href="@{/logout}">Sair</a>
+  </header>
+  <main>
+    <h1>Atualizar justificativa</h1>
+    <form th:action="@{/justification/{id}/change(id=${justification.id})}" th:method="POST" th:object="${justification}">
+      <div>
+        <lable>Descrição</lable>
+        <textarea id="idDescription" name="description" th:field="*{description}"></textarea>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+      </div>
+      <div>
+        <lable>Data</lable>
+        <input type="date" id="idDate" name="date" th:field="*{date}">
+        <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
+      </div>
+      <div>
+        <input type="submit" value="Atualizar" />
+      </div>
+    </form>
+  </main>
+</body>
+</html>
