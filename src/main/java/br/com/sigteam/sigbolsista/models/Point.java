@@ -1,5 +1,7 @@
 package br.com.sigteam.sigbolsista.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,9 +13,11 @@ public class Point {
     private Long id;
 
     @Column(nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime entryTime;
 
     @Column
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime departureTime;
 
     @ManyToOne
