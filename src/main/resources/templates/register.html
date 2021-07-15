@@ -3,27 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-  <title>Registrar</title>
+  <link href="/static/css/style.css" rel="stylesheet" />
+  <title>Cadastrar | SigBolsista</title>
 </head>
-<body>
-  <h1>Registrar!</h1>
-  <form th:action="@{/register}" th:method="POST" th:object="${user}">
+<body class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-sm w-full space-y-8">
     <div>
-      <lable>Nome</lable>
-      <input type="text" id="idName" name="name" th:field="*{name}">
+      <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Crie sua conta</h1>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Ou
+        <a th:href="@{/login}" class="font-medium text-indigo-600 hover:text-indigo-500">
+          faça login na sua conta
+        </a>
+      </p>
     </div>
     <div>
-      <lable>Usuário</lable>
-      <input type="text" id="idUsername" name="username" th:field="*{username}">
+      <form th:action="@{/register}" th:method="POST" th:object="${user}">
+        <div class="shadow overflow-hidden sm:rounded-md">
+          <div class="px-8 py-6 bg-white">
+            <div class="grid grid-cols-6 gap-4">
+              <div class="col-span-6">
+                <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                <input id="name" name="name" type="text" autocomplete="name" required th:field="*{name}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="col-span-6">
+                <label for="username" class="block text-sm font-medium text-gray-700">Usuário</label>
+                <input id="username" name="username" type="text" autocomplete="username" required th:field="*{username}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="col-span-6">
+                <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required th:field="*{password}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+            </div>
+            <div class="pt-6">
+              <button type="submit" class="relative w-full flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Cadastrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-    <div>
-      <lable>Senha</lable>
-      <input type="password" id="idPassword" name="password" th:field="*{password}">
-    </div>
-    <div>
-      <input type="submit" value="Registrar" />
-    </div>
-  </form>
+  </div>
 </body>
 </html>
