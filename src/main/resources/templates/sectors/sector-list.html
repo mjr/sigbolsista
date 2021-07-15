@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/static/css/style.css" rel="stylesheet" />
-    <title
-      th:text="'Justificativa ' + ${justification.id} + ' | SigBolsista'"
-    ></title>
+    <title>Selecione uma setor para modificar | SigBolsista</title>
   </head>
   <body class="bg-gray-100">
     <nav class="bg-gray-800">
@@ -115,19 +113,6 @@
                 <a
                   th:href="@{/sector}"
                   class="
-                    text-gray-300
-                    hover:bg-gray-700 hover:text-white
-                    px-3
-                    py-2
-                    rounded-md
-                    text-sm
-                    font-medium
-                  "
-                  >Setores</a
-                >
-                <a
-                  th:href="@{/justification}"
-                  class="
                     bg-gray-900
                     text-white
                     px-3
@@ -137,6 +122,19 @@
                     font-medium
                   "
                   aria-current="page"
+                  >Setores</a
+                >
+                <a
+                  th:href="@{/justification}"
+                  class="
+                    text-gray-300
+                    hover:bg-gray-700 hover:text-white
+                    px-3
+                    py-2
+                    rounded-md
+                    text-sm
+                    font-medium
+                  "
                   >Justificativas</a
                 >
               </div>
@@ -245,20 +243,6 @@
           <a
             th:href="@{/sector}"
             class="
-              text-gray-300
-              hover:bg-gray-700 hover:text-white
-              block
-              px-3
-              py-2
-              rounded-md
-              text-base
-              font-medium
-            "
-            >Setores</a
-          >
-          <a
-            th:href="@{/justification}"
-            class="
               bg-gray-900
               text-white
               block
@@ -269,6 +253,20 @@
               font-medium
             "
             aria-current="page"
+            >Setores</a
+          >
+          <a
+            th:href="@{/justification}"
+            class="
+              text-gray-300
+              hover:bg-gray-700 hover:text-white
+              block
+              px-3
+              py-2
+              rounded-md
+              text-base
+              font-medium
+            "
             >Justificativas</a
           >
         </div>
@@ -276,56 +274,144 @@
     </nav>
     <header class="bg-white shadow">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-900">Justificativas</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Setors</h1>
       </div>
     </header>
     <main>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
           <div class="flex justify-between mb-4">
-            <h1
-              class="text-lg font-medium leading-6 text-gray-900"
-              th:text="'Justificativa ' + ${justification.id} + ' | SigBolsista'"
-            ></h1>
+            <h1 class="text-lg font-medium leading-6 text-gray-900">
+              Selecione uma setor para modificar
+            </h1>
             <a
-              th:href="@{/justification}"
+              th:href="@{/sector/add}"
               class="
                 inline-flex
-                items-center
-                px-4
+                justify-center
                 py-2
-                border border-gray-300
-                rounded-md
+                px-4
+                border border-transparent
                 shadow-sm
                 text-sm
                 font-medium
-                text-gray-700
-                bg-white
-                hover:bg-gray-50
+                rounded-md
+                text-white
+                bg-indigo-600
+                hover:bg-indigo-700
                 focus:outline-none
                 focus:ring-2
                 focus:ring-offset-2
                 focus:ring-indigo-500
               "
-              >Voltar</a
+              >Adicionar setor</a
             >
           </div>
-          <div>
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-              <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">
-                    Data
-                  </label>
-                  <p
-                    th:text="${#temporals.format(justification.date, 'dd/MM/yyyy')}"
-                  ></p>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">
-                    Descrição
-                  </label>
-                  <p th:text="${justification.description}"></p>
+          <div class="flex flex-col">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div
+                class="
+                  py-2
+                  align-middle
+                  inline-block
+                  min-w-full
+                  sm:px-6
+                  lg:px-8
+                "
+              >
+                <div
+                  class="
+                    shadow
+                    overflow-hidden
+                    border-b border-gray-200
+                    sm:rounded-lg
+                  "
+                >
+                  <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="
+                            px-6
+                            py-3
+                            text-left text-xs
+                            font-medium
+                            text-gray-500
+                            uppercase
+                            tracking-wider
+                          "
+                        >
+                          ID
+                        </th>
+                        <th
+                          scope="col"
+                          class="
+                            px-6
+                            py-3
+                            text-left text-xs
+                            font-medium
+                            text-gray-500
+                            uppercase
+                            tracking-wider
+                          "
+                        >
+                          Nome
+                        </th>
+                        <th scope="col" class="relative px-6 py-3">
+                          <span class="sr-only">Ações</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                      <tr th:if="${sectors.empty}">
+                        <td
+                          colspan="3"
+                          class="
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                            bg-gray-50
+                            text-center text-sm
+                            font-medium
+                          "
+                        >
+                          Nenhuma setor disponível
+                        </td>
+                      </tr>
+                      <tr th:each="sector : ${sectors}">
+                        <td class="px-6 py-4">
+                          <span th:text="${sector.id}"></span>
+                        </td>
+                        <td><span th:text="${sector.name}"></span></td>
+                        <td
+                          class="
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                            text-right text-sm
+                            font-medium
+                          "
+                        >
+                          <a
+                            th:href="@{/sector/{id}(id=${sector.id})}"
+                            class="text-gray-600 hover:text-gray-900"
+                            >Detalhes</a
+                          >
+                          <a
+                            th:href="@{/sector/{id}/change(id=${sector.id})}"
+                            class="ml-3 text-indigo-600 hover:text-indigo-900"
+                            >Editar</a
+                          >
+                          <a
+                            th:href="@{/sector/{id}/delete(id=${sector.id})}"
+                            class="ml-3 text-red-600 hover:red"
+                            >Remover</a
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

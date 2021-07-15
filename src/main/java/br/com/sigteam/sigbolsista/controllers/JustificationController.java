@@ -27,7 +27,6 @@ public class JustificationController {
     @RequestMapping(value = "/justification/add", method = RequestMethod.GET)
     public String emptyForm(Model model) {
         model.addAttribute("justification", new Justification());
-        model.addAttribute("action", "/justification/add");
         return "justifications/justification-form";
     }
 

@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/static/css/style.css" rel="stylesheet" />
-    <title
-      th:text="'Justificativa ' + ${justification.id} + ' | SigBolsista'"
-    ></title>
+    <title th:text="'Unidade ' + ${unit.id} + ' | SigBolsista'"></title>
   </head>
   <body class="bg-gray-100">
     <nav class="bg-gray-800">
@@ -102,14 +100,15 @@
                 <a
                   th:href="@{/unit}"
                   class="
-                    text-gray-300
-                    hover:bg-gray-700 hover:text-white
+                    bg-gray-900
+                    text-white
                     px-3
                     py-2
                     rounded-md
                     text-sm
                     font-medium
                   "
+                  aria-current="page"
                   >Unidades</a
                 >
                 <a
@@ -128,15 +127,14 @@
                 <a
                   th:href="@{/justification}"
                   class="
-                    bg-gray-900
-                    text-white
+                    text-gray-300
+                    hover:bg-gray-700 hover:text-white
                     px-3
                     py-2
                     rounded-md
                     text-sm
                     font-medium
                   "
-                  aria-current="page"
                   >Justificativas</a
                 >
               </div>
@@ -231,8 +229,8 @@
           <a
             th:href="@{/unit}"
             class="
-              text-gray-300
-              hover:bg-gray-700 hover:text-white
+              bg-gray-900
+              text-white
               block
               px-3
               py-2
@@ -240,6 +238,7 @@
               text-base
               font-medium
             "
+            aria-current="page"
             >Unidades</a
           >
           <a
@@ -259,8 +258,8 @@
           <a
             th:href="@{/justification}"
             class="
-              bg-gray-900
-              text-white
+              text-gray-300
+              hover:bg-gray-700 hover:text-white
               block
               px-3
               py-2
@@ -268,7 +267,6 @@
               text-base
               font-medium
             "
-            aria-current="page"
             >Justificativas</a
           >
         </div>
@@ -276,7 +274,7 @@
     </nav>
     <header class="bg-white shadow">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-900">Justificativas</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Unidades</h1>
       </div>
     </header>
     <main>
@@ -285,10 +283,10 @@
           <div class="flex justify-between mb-4">
             <h1
               class="text-lg font-medium leading-6 text-gray-900"
-              th:text="'Justificativa ' + ${justification.id} + ' | SigBolsista'"
+              th:text="'Unidade ' + ${unit.id} + ' | SigBolsista'"
             ></h1>
             <a
-              th:href="@{/justification}"
+              th:href="@{/unit}"
               class="
                 inline-flex
                 items-center
@@ -315,17 +313,9 @@
               <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700">
-                    Data
+                    Nome
                   </label>
-                  <p
-                    th:text="${#temporals.format(justification.date, 'dd/MM/yyyy')}"
-                  ></p>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">
-                    Descrição
-                  </label>
-                  <p th:text="${justification.description}"></p>
+                  <p th:text="${unit.name}"></p>
                 </div>
               </div>
             </div>

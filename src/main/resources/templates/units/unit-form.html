@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/static/css/style.css" rel="stylesheet" />
-    <title
-      th:text="'Justificativa ' + ${justification.id} + ' | SigBolsista'"
-    ></title>
+    <title>Adicionar unidade | SigBolsista</title>
   </head>
   <body class="bg-gray-100">
     <nav class="bg-gray-800">
@@ -102,14 +100,15 @@
                 <a
                   th:href="@{/unit}"
                   class="
-                    text-gray-300
-                    hover:bg-gray-700 hover:text-white
+                    bg-gray-900
+                    text-white
                     px-3
                     py-2
                     rounded-md
                     text-sm
                     font-medium
                   "
+                  aria-current="page"
                   >Unidades</a
                 >
                 <a
@@ -128,15 +127,14 @@
                 <a
                   th:href="@{/justification}"
                   class="
-                    bg-gray-900
-                    text-white
+                    text-gray-300
+                    hover:bg-gray-700 hover:text-white
                     px-3
                     py-2
                     rounded-md
                     text-sm
                     font-medium
                   "
-                  aria-current="page"
                   >Justificativas</a
                 >
               </div>
@@ -231,8 +229,8 @@
           <a
             th:href="@{/unit}"
             class="
-              text-gray-300
-              hover:bg-gray-700 hover:text-white
+              bg-gray-900
+              text-white
               block
               px-3
               py-2
@@ -240,6 +238,7 @@
               text-base
               font-medium
             "
+            aria-current="page"
             >Unidades</a
           >
           <a
@@ -259,8 +258,8 @@
           <a
             th:href="@{/justification}"
             class="
-              bg-gray-900
-              text-white
+              text-gray-300
+              hover:bg-gray-700 hover:text-white
               block
               px-3
               py-2
@@ -268,7 +267,6 @@
               text-base
               font-medium
             "
-            aria-current="page"
             >Justificativas</a
           >
         </div>
@@ -276,19 +274,18 @@
     </nav>
     <header class="bg-white shadow">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-900">Justificativas</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Unidades</h1>
       </div>
     </header>
     <main>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
           <div class="flex justify-between mb-4">
-            <h1
-              class="text-lg font-medium leading-6 text-gray-900"
-              th:text="'Justificativa ' + ${justification.id} + ' | SigBolsista'"
-            ></h1>
+            <h1 class="text-lg font-medium leading-6 text-gray-900">
+              Adicionar unidade
+            </h1>
             <a
-              th:href="@{/justification}"
+              th:href="@{/unit}"
               class="
                 inline-flex
                 items-center
@@ -311,24 +308,64 @@
             >
           </div>
           <div>
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-              <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">
-                    Data
-                  </label>
-                  <p
-                    th:text="${#temporals.format(justification.date, 'dd/MM/yyyy')}"
-                  ></p>
+            <form th:action="@{/unit/add}" th:method="POST" th:object="${unit}">
+              <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                  <div>
+                    <label
+                      for="name"
+                      class="block text-sm font-medium text-gray-700"
+                    >
+                      Nome
+                    </label>
+                    <div class="mt-1">
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        th:field="*{name}"
+                        class="
+                          focus:ring-indigo-500 focus:border-indigo-500
+                          flex-1
+                          block
+                          w-full
+                          rounded-md
+                          sm:text-sm
+                          border-gray-300
+                        "
+                        placeholder="Digite o nome da unidade"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">
-                    Descrição
-                  </label>
-                  <p th:text="${justification.description}"></p>
+                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                  <button
+                    type="submit"
+                    class="
+                      inline-flex
+                      justify-center
+                      py-2
+                      px-4
+                      border border-transparent
+                      shadow-sm
+                      text-sm
+                      font-medium
+                      rounded-md
+                      text-white
+                      bg-indigo-600
+                      hover:bg-indigo-700
+                      focus:outline-none
+                      focus:ring-2
+                      focus:ring-offset-2
+                      focus:ring-indigo-500
+                    "
+                  >
+                    Salvar
+                  </button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
