@@ -369,6 +369,41 @@
                       />
                     </div>
                   </div>
+                  <div>
+                    <label
+                      for="unit"
+                      class="block text-sm font-medium text-gray-700"
+                      >Unidade</label
+                    >
+                    <select
+                      id="unit"
+                      name="unit"
+                      autocomplete="unit"
+                      required
+                      th:field="*{unit}"
+                      class="
+                        mt-1
+                        block
+                        w-full
+                        py-2
+                        px-3
+                        border border-gray-300
+                        bg-white
+                        rounded-md
+                        shadow-sm
+                        focus:outline-none
+                        focus:ring-indigo-500
+                        focus:border-indigo-500
+                        sm:text-sm
+                      "
+                    >
+                      <option
+                        th:each="unit : ${units}"
+                        th:value="${unit.id}"
+                        th:text="${unit.name}"
+                      ></option>
+                    </select>
+                  </div>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button

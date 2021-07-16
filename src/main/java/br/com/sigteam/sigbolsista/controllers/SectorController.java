@@ -3,6 +3,7 @@ package br.com.sigteam.sigbolsista.controllers;
 import br.com.sigteam.sigbolsista.models.Sector;
 import br.com.sigteam.sigbolsista.models.User;
 import br.com.sigteam.sigbolsista.services.SectorService;
+import br.com.sigteam.sigbolsista.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class SectorController {
     @Autowired
     private SectorService sectorService;
 
+    @Autowired
+    private UnitService unitService;
+
     @RequestMapping(value = "/sector", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("sectors", sectorService.all());
@@ -26,6 +30,7 @@ public class SectorController {
 
     @RequestMapping(value = "/sector/add", method = RequestMethod.GET)
     public String emptyForm(Model model) {
+        model.addAttribute("units", unitService.all());
         model.addAttribute("sector", new Sector());
         return "sectors/sector-form";
     }
@@ -58,6 +63,7 @@ public class SectorController {
             return "redirect:/sector";
         }
 
+        model.addAttribute("units", unitService.all());
         model.addAttribute("sector", sector.get());
         return "sectors/sector-update";
     }
