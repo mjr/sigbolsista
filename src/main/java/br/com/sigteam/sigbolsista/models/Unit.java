@@ -15,6 +15,9 @@ public class Unit {
 
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sector> sectors;
+    
+    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> users;
 
     public Long getId() {
         return id;

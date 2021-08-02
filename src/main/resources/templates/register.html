@@ -68,6 +68,35 @@
                   <label
                     for="username"
                     class="block text-sm font-medium text-gray-700"
+                    >Papel</label
+                  >
+                  <select
+                    id="role"
+                    name="role"
+                    required
+                    th:field="*{role}"
+                    class="
+                      mt-1
+                      focus:ring-indigo-500 focus:border-indigo-500
+                      block
+                      w-full
+                      shadow-sm
+                      sm:text-sm
+                      border-gray-300
+                      rounded-md
+                    "
+                  >
+                  	<option value="0">SELECIONE O PAPEL</option>
+                  	<option value="2">Bolsista</option>
+                  	<option value="3">Gerente de Setor</option>
+                  	<option value="4">Gerente de Unidade</option>
+                  	<option value="1">Administrador</option>
+                  </select>
+                </div>
+                <div class="col-span-6">
+                  <label
+                    for="username"
+                    class="block text-sm font-medium text-gray-700"
                     >Usuário</label
                   >
                   <input

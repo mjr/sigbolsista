@@ -4,6 +4,7 @@ import br.com.sigteam.sigbolsista.exceptions.UserAlreadyExistException;
 import br.com.sigteam.sigbolsista.models.User;
 import br.com.sigteam.sigbolsista.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
     @Autowired
     private UserService userService;
+    
+    private static final String DASHBOARD = "redirect:/dashboard";
 
     @GetMapping("/register")
     public String getRegister(Model model) {
@@ -30,6 +33,11 @@ public class UserController {
             model.addAttribute("registrationForm", user);
             return new ModelAndView("register");
         }
+        
+        if(user.getRole() == 0) {
+        	return new ModelAndView("redirect:/register");
+        }
+        
         try {
             userService.register(user);
         } catch (UserAlreadyExistException e) {
@@ -38,5 +46,17 @@ public class UserController {
             return new ModelAndView("register");
         }
         return new ModelAndView("redirect:/login");
+    }
+    
+    @PostMapping("/user/edit")
+    public String editUser(User user, BindingResult bindingResult, @AuthenticationPrincipal User loged) {
+    	if(userService.checkRole(user))
+    		return DASHBOARD;
+    	
+    	if(bindingResult.hasErrors()) 
+    		return DASHBOARD;
+    	
+    	userService.save(user);
+    	return DASHBOARD;
     }
 }

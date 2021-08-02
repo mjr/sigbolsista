@@ -17,21 +17,33 @@ import java.util.Optional;
 public class UnitController {
     @Autowired
     private UnitService unitService;
+    
+    private static final String DASHBOARD = "redirect:/dashboard";
+    
 
     @RequestMapping(value = "/unit", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         model.addAttribute("units", unitService.all());
         return "units/unit-list";
     }
 
     @RequestMapping(value = "/unit/add", method = RequestMethod.GET)
-    public String emptyForm(Model model) {
+    public String emptyForm(Model model, @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         model.addAttribute("unit", new Unit());
         return "units/unit-form";
     }
 
     @RequestMapping(value = "/unit/add", method = RequestMethod.POST)
-    public String create(Unit unit, BindingResult bindingResult) {
+    public String create(Unit unit, BindingResult bindingResult, @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         if (bindingResult.hasErrors()) {
             return "units/unit-form";
         }
@@ -41,7 +53,10 @@ public class UnitController {
     }
 
     @RequestMapping(value = "/unit/{id}", method = RequestMethod.GET)
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Unit> unit = unitService.getById(id);
         if (!unit.isPresent()) {
             return "redirect:/unit";
@@ -52,7 +67,10 @@ public class UnitController {
     }
 
     @RequestMapping(value = "/unit/{id}/change", method = RequestMethod.GET)
-    public String updateForm(@PathVariable("id") Long id, Model model) {
+    public String updateForm(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Unit> unit = unitService.getById(id);
         if (!unit.isPresent()) {
             return "redirect:/unit";
@@ -63,7 +81,11 @@ public class UnitController {
     }
 
     @RequestMapping(value = "/unit/{id}/change", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Long id, Unit unit, BindingResult bindingResult) {
+    public String update(@PathVariable("id") Long id, Unit unit, BindingResult bindingResult, 
+    					 @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Unit> unitOptional = unitService.getById(id);
         if (!unitOptional.isPresent()) {
             return "redirect:/unit";
@@ -78,7 +100,10 @@ public class UnitController {
     }
 
     @GetMapping("/unit/{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(@PathVariable("id") Long id, @AuthenticationPrincipal User user) {
+    	if(unitService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Unit> unit = unitService.getById(id);
         if (!unit.isPresent()) {
             return "redirect:/unit";
@@ -87,4 +112,5 @@ public class UnitController {
         unitService.delete(unit.get());
         return "redirect:/unit";
     }
+    
 }

@@ -21,22 +21,33 @@ public class SectorController {
 
     @Autowired
     private UnitService unitService;
+    
+    private static final String DASHBOARD = "redirect:/dashboard";
 
     @RequestMapping(value = "/sector", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         model.addAttribute("sectors", sectorService.all());
         return "sectors/sector-list";
     }
 
     @RequestMapping(value = "/sector/add", method = RequestMethod.GET)
-    public String emptyForm(Model model) {
+    public String emptyForm(Model model, @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         model.addAttribute("units", unitService.all());
         model.addAttribute("sector", new Sector());
         return "sectors/sector-form";
     }
 
     @RequestMapping(value = "/sector/add", method = RequestMethod.POST)
-    public String create(Sector sector, BindingResult bindingResult) {
+    public String create(Sector sector, BindingResult bindingResult, @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         if (bindingResult.hasErrors()) {
             return "sectors/sector-form";
         }
@@ -46,7 +57,10 @@ public class SectorController {
     }
 
     @RequestMapping(value = "/sector/{id}", method = RequestMethod.GET)
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Sector> sector = sectorService.getById(id);
         if (!sector.isPresent()) {
             return "redirect:/sector";
@@ -57,7 +71,10 @@ public class SectorController {
     }
 
     @RequestMapping(value = "/sector/{id}/change", method = RequestMethod.GET)
-    public String updateForm(@PathVariable("id") Long id, Model model) {
+    public String updateForm(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Sector> sector = sectorService.getById(id);
         if (!sector.isPresent()) {
             return "redirect:/sector";
@@ -69,7 +86,11 @@ public class SectorController {
     }
 
     @RequestMapping(value = "/sector/{id}/change", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Long id, Sector sector, BindingResult bindingResult) {
+    public String update(@PathVariable("id") Long id, Sector sector, BindingResult bindingResult,
+    					 @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Sector> sectorOptional = sectorService.getById(id);
         if (!sectorOptional.isPresent()) {
             return "redirect:/sector";
@@ -84,7 +105,10 @@ public class SectorController {
     }
 
     @GetMapping("/sector/{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(@PathVariable("id") Long id, @AuthenticationPrincipal User user) {
+    	if(sectorService.checkRole(user))
+    		return DASHBOARD;
+    	
         Optional<Sector> sector = sectorService.getById(id);
         if (!sector.isPresent()) {
             return "redirect:/sector";

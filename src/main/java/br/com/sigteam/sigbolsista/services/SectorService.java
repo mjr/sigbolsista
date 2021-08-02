@@ -1,10 +1,14 @@
 package br.com.sigteam.sigbolsista.services;
 
+import br.com.sigteam.sigbolsista.models.Role;
 import br.com.sigteam.sigbolsista.models.Sector;
+import br.com.sigteam.sigbolsista.models.User;
 import br.com.sigteam.sigbolsista.repositories.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -27,4 +31,9 @@ public class SectorService {
     public void delete(Sector sector) {
         sectorRepository.delete(sector);
     }
+    
+	public boolean checkRole(User user) {
+		List<Integer> roles =  Arrays.asList(Role.ADMIN, Role.UNIT_MANAGER);
+		return !roles.contains(user.getRole());
+	}
 }

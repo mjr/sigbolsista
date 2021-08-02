@@ -1,7 +1,11 @@
 package br.com.sigteam.sigbolsista.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import br.com.sigteam.sigbolsista.models.User;
 
 @Controller
 public class IndexController {
@@ -11,7 +15,8 @@ public class IndexController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(@AuthenticationPrincipal User user, Model model) {
+    	model.addAttribute("user", user);
         return "dashboard";
     }
 }

@@ -1,8 +1,13 @@
 package br.com.sigteam.sigbolsista.services;
 
 import br.com.sigteam.sigbolsista.exceptions.UserAlreadyExistException;
+import br.com.sigteam.sigbolsista.models.Role;
 import br.com.sigteam.sigbolsista.models.User;
 import br.com.sigteam.sigbolsista.repositories.UserRepository;
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,4 +49,13 @@ public class UserService implements UserDetailsService {
     private void encodePassword(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
+    
+    public void save(User user) {
+    	userRepository.save(user);
+    }
+
+	public boolean checkRole(User user) {
+		List<Integer> roles =  Arrays.asList(Role.ADMIN);
+		return !roles.contains(user.getRole());
+	}
 }

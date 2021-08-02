@@ -5,8 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -26,14 +28,63 @@ public class User implements UserDetails {
     @ManyToOne
     @JoinColumn(name="sector_id")
     private Sector sector;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_unit")
+    private Unit unit;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Justification> justifications;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Point> points;
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Goal> goals;
+    
+    private int role;    
+    
+    public int getRole() {
+		return role;
+	}
 
-    public Long getId() {
+	public void setRole(int role) {
+		this.role = role;
+	}
+
+	public Sector getSector() {
+		return sector;
+	}
+
+	public void setSector(Sector sector) {
+		this.sector = sector;
+	}
+
+	public Set<Justification> getJustifications() {
+		return justifications;
+	}
+
+	public void setJustifications(Set<Justification> justifications) {
+		this.justifications = justifications;
+	}
+
+	public Set<Point> getPoints() {
+		return points;
+	}
+
+	public void setPoints(Set<Point> points) {
+		this.points = points;
+	}
+
+	public List<Goal> getGoals() {
+		return goals;
+	}
+
+	public void setGoals(List<Goal> goals) {
+		this.goals = goals;
+	}
+
+	public Long getId() {
         return id;
     }
 
